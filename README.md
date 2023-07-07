@@ -1,3 +1,5 @@
+Tired of checking your every manga for new chapters? Well, now you can do it just with a click!
+
 Value your time [[Latest release]](https://github.com/DeSoreGD/MangaEaseUp/releases/tag/manga)
 
 These are the steps to save your time:
