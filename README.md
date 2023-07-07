@@ -1,4 +1,4 @@
-Value your time
+Value your time [[Latest release]](https://github.com/DeSoreGD/MangaEaseUp/releases/tag/manga)
 
 These are the steps to save your time:
 
