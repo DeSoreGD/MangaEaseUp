@@ -293,7 +293,6 @@ class MUApp(customtkinter.CTk):
         except FileNotFoundError:
             loaded_data = {}
         self.CheckForNewChaps.configure(state='disabled')
-        self.OpenNewChaps.configure(state='disabled')
         templinks={}
         for i in loaded_data:
             if len(loaded_data[f'{i}']) >= 5 and not loaded_data[f'{i}'][5] == None:
@@ -325,7 +324,6 @@ class MUApp(customtkinter.CTk):
             if len(new_templinks)>0: links.update(new_templinks)
             with open('newchapslinks.pkl', 'wb') as file:
                 pickle.dump(links, file)
-            self.after(1000, lambda:self.OpenNewChaps.configure(state='normal'))
             self.infoAboutChapters.configure(text=f'{len(templinks)} manga with new chapter(s)')
         else:
             self.infoAboutChapters.configure(text='No new chapters')
