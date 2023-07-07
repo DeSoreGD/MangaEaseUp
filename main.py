@@ -147,10 +147,10 @@ class MUApp(customtkinter.CTk):
         self.OpenNewChaps = customtkinter.CTkButton(master=self, text="Open New Chapters", command=self.OpenNewChapsPress)
         self.OpenNewChaps.grid(row=2,column=0,padx=(10,0),pady=(20,15),sticky='w')
         self.OpenNewChaps.configure(height=100,width=150)
-        # Donate Button
-        self.DonateButt = customtkinter.CTkButton(master=self, text="Donate", command=self.DonatePress)
-        self.DonateButt.grid(row=2,column=4,padx=(0,10),pady=(75,0),sticky='e')
-        self.DonateButt.configure(height=35,width=75)
+        # Info Button
+        self.InfoButt = customtkinter.CTkButton(master=self, text="Info", command=self.InfoPress)
+        self.InfoButt.grid(row=2,column=4,padx=(0,10),pady=(75,0),sticky='e')
+        self.InfoButt.configure(height=35,width=75)
         
         self.bind('<Return>', self.SearchButtPress)
     
@@ -257,6 +257,8 @@ class MUApp(customtkinter.CTk):
                     loaded_data[f'{len(loaded_data) + 1}'] = i
                     if os.path.exists(f"images\{i[0]}.png"):
                         os.rename(f"images\{i[0]}.png", f"images\{i[0]}il.png")
+                    with open('list.pkl', 'wb') as file:
+                        pickle.dump(loaded_data, file)
                 for j in loaded_data:  # j is key
                     if loaded_data[j][0]==i[0]:
                         self.MangaInfoAdd.configure(text='Already exists in the list')
@@ -270,12 +272,6 @@ class MUApp(customtkinter.CTk):
                         os.rename(f"images\{i[0]}.png", f"images\{i[0]}il.png")
                     with open('list.pkl', 'wb') as file:
                         pickle.dump(loaded_data, file)
-                    extracted_results = []
-                    for result in checked_boxes:
-                        if result[0] == i[0]:
-                            extracted_result = [result[0],result[2]]
-                            extracted_results.append(extracted_result)
-                    MSUW.MangaSetUpWindow(extracted_results)
                 else:
                     AlreadExists=False
             
@@ -347,8 +343,20 @@ class MUApp(customtkinter.CTk):
     def ShowYourList(self):
         self.listuser=list.UserList()
     
-    def DonatePress(self):
-        print('s')
+    def InfoPress(self):
+        class UserList(customtkinter.CTkToplevel):
+            def __init__(self):
+                super().__init__()
+                self.grab_set()
+                self.after(250, lambda: self.iconbitmap('iconforMEU.ico'))
+                self.title("Info")
+                self.geometry("780x150")
+                self.minsize(780,150)
+                
+                self.Credit = customtkinter.CTkLabel(self, text="Credits:\nThis was made possible thanks to MangaUpdates API(https://api.mangaupdates.com/ & https://www.mangaupdates.com/)\nI did this mainly because I needed programming experience, but also so that reading manga wouldn't take too much time.\nIf anything, these are my contacts:\nDiscord: desore(It's so weird without the hashtag lol)\nMy email: desoreoff@gmail.com", fg_color="transparent")
+                self.Credit.configure(font=('Roboto Regular',14),text_color="white")
+                self.Credit.grid(row=0,column=0,padx=10,pady=20,sticky='n')
+        UserList()
             
     def on_closing(self):
         self.RemoveNeedlesImages()
