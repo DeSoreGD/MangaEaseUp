@@ -7,7 +7,6 @@ These are the steps to save your time:
 2. Check the manga you want to add and click "Add"
   
 3. After you added all manga go to your list and "Check all" or those that you didn't set up, and click "Set up"
-
 3.1. Put your preffered url to open or don't
 3.2. Enter on what chapter you are now
 3.3. Choose group which translates to get notifications only when they got chapter on their site(like if you use https://www.asurascans.com/, then you choose Asura group)
