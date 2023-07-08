@@ -29,7 +29,7 @@ These are the steps to save your time:
 IMPORTANT!
 IF YOU HAVE MORE THAN ~45 MANGA TO CHECK THE APP WILL NOT RESPONSE BUT DON'T CLOSE IT, BECAUSE IT WORKS AND YOU WILL NEED TO WAIT 1 MINUTE TO CHECK OTHER 45 MANGA,
 SO THAT YOU DON'T GET 429 ERROR(TOO MANY REQUESTS)
-But I think you still able to get 429 error it will go away with some time(with time I'll made a window if you hit 429 error)
+But I think you are still able to get 429 error, it will go away with some time(with time I'll make a window if you hit 429 error)
 So if you have 200 manga you need to wait around 4-5 mins, I know that sucks but it's better than checking every manga by yourself.
 
 5. Click "open new chapters"
