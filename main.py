@@ -363,7 +363,7 @@ class MUApp(customtkinter.CTk):
         self.destroy()
 
 
-# chang
+# change
 # add credit to api
 MUAppW = MUApp()
 MUAppW.wm_protocol("WM_DELETE_WINDOW", MUAppW.on_closing)
