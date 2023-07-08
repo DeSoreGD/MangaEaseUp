@@ -17,7 +17,7 @@ customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark
 customtkinter.set_default_color_theme("dark-blue")  # Themes: "blue" (standard), "green", "dark-blue"        
 
 # series_id[0][0] = serid, [number of manga][1]=thumb, [0][2]=title, [3]=url to pref site, [4]= last chapt r, [5] = group to check
-#sticky n,s,e,w it's to where to stick your thing(compass like)
+#sticky n,s,e,w (compass)
 # box where manga shown
 class MyScrollableCheckboxFrame(customtkinter.CTkScrollableFrame):
     def __init__(self, master, title, values, imges,serid,urls): # cache imgs here and delete not checked imges when add button

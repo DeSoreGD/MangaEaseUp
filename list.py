@@ -33,7 +33,7 @@ class CheckBoxesFrame(customtkinter.CTkFrame):
         checkboxes.append(self.checkbox)
         
 
-#sticky n,s,e,w it's to where to stick your thing(compass like)
+
 # box where manga shown
 class MangaBox(customtkinter.CTkScrollableFrame):
     def __init__(self, master, title, values,serid,user_list_instance): 

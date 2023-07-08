@@ -48,7 +48,7 @@ def handle_response(response):
     elif response.status_code == 429:
         retry_after = int(response.headers.get('Retry-After', 5))
         time.sleep(retry_after)
-        # need to call function another time or just make a window that hit 429
+        #  make a window that hit 429
     else:
         print('Error occurred:', response)
         return None
@@ -125,5 +125,3 @@ def search_manga(search_query,numpage):
         return extracted_results
     else:
         return []
-
-# Define other API functions here
