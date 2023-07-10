@@ -1,6 +1,4 @@
 .vscode/extensions.json
 images/
 __pycache__/
-list.pkl
-newchapslinks.pkl
-defaultopenlist.pkl
+lists/
