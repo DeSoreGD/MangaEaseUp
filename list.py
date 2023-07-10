@@ -68,7 +68,7 @@ class UserList(customtkinter.CTkToplevel):
         super().__init__()
         self.grab_set()
         try:
-            with open('list.pkl', 'rb') as file:
+            with open('lists\\list.pkl', 'rb') as file:
                 self.loaded_data = pickle.load(file)
         except FileNotFoundError:
             self.loaded_data = {}
@@ -129,7 +129,7 @@ class UserList(customtkinter.CTkToplevel):
     def OpenOList(self):
         if not self.DefaultFlag:
             try:
-                with open('defaultopenlist.pkl', 'rb') as file:
+                with open('lists\\defaultopenlist.pkl', 'rb') as file:
                     self.default_list = pickle.load(file)
                     #[seriesid][url,name]
             except FileNotFoundError:
@@ -146,7 +146,7 @@ class UserList(customtkinter.CTkToplevel):
                 self.note.configure(text="No manga in\nthe default list",font=('Roboto Regular',14),text_color="yellow")
         else:
             try:
-                with open('list.pkl', 'rb') as file:
+                with open('lists\\list.pkl', 'rb') as file:
                     self.loaded_data = pickle.load(file)
             except FileNotFoundError:
                 self.loaded_data = {}
@@ -172,7 +172,7 @@ class UserList(customtkinter.CTkToplevel):
         def Change():
             if not self.DefaultFlag:
                 try:
-                    with open('list.pkl', 'rb') as file:
+                    with open('lists\\list.pkl', 'rb') as file:
                         self.loaded_data = pickle.load(file)
                 except FileNotFoundError:
                     self.loaded_data = {}
@@ -251,7 +251,7 @@ class UserList(customtkinter.CTkToplevel):
                 for f in self.loaded_data:
                     if i[0]==self.loaded_data[f'{f}'][0]:
                         try:
-                            with open('newchapslinks.pkl', 'rb') as file:
+                            with open('lists\\newchapslinks.pkl', 'rb') as file:
                                 self.reading_list = pickle.load(file)
                                 #[seriesid][url,name]
                         except FileNotFoundError:
@@ -277,7 +277,7 @@ class UserList(customtkinter.CTkToplevel):
                             new_dict[str(i)] = value
                         self.loaded_data = new_dict
                         self.makeMangaBox()
-                        with open('list.pkl', 'wb') as file:
+                        with open('lists\\list.pkl', 'wb') as file:
                             pickle.dump(self.loaded_data, file)
                         break
         else:
@@ -301,6 +301,6 @@ class UserList(customtkinter.CTkToplevel):
                         for i in self.default_list: serid.append(i)
                         for i in self.default_list: values.append(self.default_list[i][1])
                         self.makeMangaBox(values,serid)
-                        with open('defaultopenlist.pkl', 'wb') as file:
+                        with open('lists\\defaultopenlist.pkl', 'wb') as file:
                             pickle.dump(self.default_list, file)
                         break

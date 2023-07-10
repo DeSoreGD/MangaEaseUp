@@ -28,9 +28,6 @@ class MyScrollableCheckboxFrame(customtkinter.CTkScrollableFrame):
         self.checkboxes = []
         self.urls = urls
         self.configure(height=3)
-        if not os.path.exists("images\\"):
-            # Create the folder
-            os.makedirs("images\\")
         def load_image(url,seriesid):
             response = requests.get(url)
             img = Image.open(BytesIO(response.content))
@@ -97,7 +94,12 @@ class MUApp(customtkinter.CTk):
         self.grid_columnconfigure((1,2,3,4), weight=3)
         self.grid_columnconfigure((4),weight=1)
         self.grid_rowconfigure((1), weight=1)
-        
+        if not os.path.exists("images\\"):
+            # Create the folder
+            os.makedirs("images\\")
+        if not os.path.exists("lists\\"):
+            # Create the folder
+            os.makedirs("lists\\")
         # Row 0
         # Search for Manga
         self.MangaSearch = customtkinter.CTkEntry(self, placeholder_text="Search for manga...")
@@ -243,7 +245,7 @@ class MUApp(customtkinter.CTk):
     def AddMangaButtonPressed(self):
         def AddManga(series):
             try:
-                with open('list.pkl', 'rb') as file:
+                with open('lists\\list.pkl', 'rb') as file:
                     loaded_data = pickle.load(file)
             except FileNotFoundError:
                 loaded_data = {}
@@ -257,7 +259,7 @@ class MUApp(customtkinter.CTk):
                     loaded_data[f'{len(loaded_data) + 1}'] = i
                     if os.path.exists(f"images\{i[0]}.png"):
                         os.rename(f"images\{i[0]}.png", f"images\{i[0]}il.png")
-                    with open('list.pkl', 'wb') as file:
+                    with open('lists\\list.pkl', 'wb') as file:
                         pickle.dump(loaded_data, file)
                 for j in loaded_data:  # j is key
                     if loaded_data[j][0]==i[0]:
@@ -270,7 +272,7 @@ class MUApp(customtkinter.CTk):
                     loaded_data[f'{len(loaded_data) + 1}'] = i
                     if os.path.exists(f"images\{i[0]}.png"):
                         os.rename(f"images\{i[0]}.png", f"images\{i[0]}il.png")
-                    with open('list.pkl', 'wb') as file:
+                    with open('lists\\list.pkl', 'wb') as file:
                         pickle.dump(loaded_data, file)
                 else:
                     AlreadExists=False
@@ -288,7 +290,7 @@ class MUApp(customtkinter.CTk):
     def checkForNewChapsPress(self):
         self.MangaInfoAdd.configure(text='')
         try:
-            with open('list.pkl', 'rb') as file:
+            with open('lists\\list.pkl', 'rb') as file:
                 loaded_data = pickle.load(file)
         except FileNotFoundError:
             loaded_data = {}
@@ -311,7 +313,7 @@ class MUApp(customtkinter.CTk):
                     print("No number found in the string.")
         if len(templinks) > 0:
             try:
-                with open('newchapslinks.pkl', 'rb') as file:
+                with open('lists\\newchapslinks.pkl', 'rb') as file:
                     links = pickle.load(file)
             except FileNotFoundError:
                 links = {}
@@ -323,7 +325,7 @@ class MUApp(customtkinter.CTk):
                 else:
                     new_templinks[f'{templink}'] = templinks[f'{templink}']
             if len(new_templinks)>0: links.update(new_templinks)
-            with open('newchapslinks.pkl', 'wb') as file:
+            with open('lists\\newchapslinks.pkl', 'wb') as file:
                 pickle.dump(links, file)
             self.after(1000, lambda:self.OpenNewChaps.configure(state='normal'))
             self.infoAboutChapters.configure(text=f'{len(templinks)} manga with new chapter(s)')
@@ -334,7 +336,7 @@ class MUApp(customtkinter.CTk):
     def OpenNewChapsPress(self):
         self.MangaInfoAdd.configure(text='')
         try:
-            with open('newchapslinks.pkl', 'rb') as file:
+            with open('lists\\newchapslinks.pkl', 'rb') as file:
                 links = pickle.load(file)
         except FileNotFoundError:
             links = {}

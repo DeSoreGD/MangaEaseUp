@@ -127,7 +127,7 @@ class ReadingUserList(customtkinter.CTkToplevel):
     
     def OpenDefList(self):
         try:
-            with open('defaultopenlist.pkl', 'rb') as file:
+            with open('lists\\defaultopenlist.pkl', 'rb') as file:
                 default_list = pickle.load(file)
         except FileNotFoundError:
             default_list = {}
@@ -187,7 +187,7 @@ class ReadingUserList(customtkinter.CTkToplevel):
         if not wind.result:
             return
         try:
-            with open('list.pkl', 'rb') as file:
+            with open('lists\\list.pkl', 'rb') as file:
                 list = pickle.load(file)
         except FileNotFoundError:
             print('error')
@@ -217,9 +217,9 @@ class ReadingUserList(customtkinter.CTkToplevel):
                         break
         self.MangaListBox.destroy()
         self.makeMangaBox()
-        with open('list.pkl', 'wb') as file:
+        with open('lists\\list.pkl', 'wb') as file:
             pickle.dump(list, file)
-        with open('newchapslinks.pkl', 'wb') as file:
+        with open('lists\\newchapslinks.pkl', 'wb') as file:
             pickle.dump(self.loaded_data, file)
                 
 

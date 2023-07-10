@@ -76,7 +76,7 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
             s.pack()
             
         try:
-            with open('defaultopenlist.pkl', 'rb') as file:
+            with open('lists\\defaultopenlist.pkl', 'rb') as file:
                 loaded_data = pickle.load(file)
         except FileNotFoundError:
             loaded_data = {}
@@ -84,7 +84,7 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
         SetUppingManga()
         #save before exeting the app
         def save_data():
-            with open('defaultopenlist.pkl', 'wb') as file:
+            with open('lists\\defaultopenlist.pkl', 'wb') as file:
                 pickle.dump(loaded_data, file)
             self.destroy()
             

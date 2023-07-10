@@ -77,7 +77,7 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
                         def FindTheRightOneAndAdd(url):
                             if self.ToDefaultListCheck.get() == 1: # add to default open list if checked
                                 try:
-                                    with open('defaultopenlist.pkl', 'rb') as file:
+                                    with open('lists\\defaultopenlist.pkl', 'rb') as file:
                                         default_list = pickle.load(file)
                                         #[seriesid][url]
                                 except FileNotFoundError:
@@ -90,19 +90,19 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
                                             new_dict[str(j)] = value
                                         self.loaded_data = new_dict
                                         break
-                                with open('list.pkl', 'wb') as file:
+                                with open('lists\\list.pkl', 'wb') as file:
                                     pickle.dump(self.loaded_data, file)
                                 if len(default_list) > 0:
                                     for dseries in default_list:
                                         if int(dseries) == series[manga_index][0]:
                                             default_list[dseries]=[url,series[manga_index][1]]
                                             self.DoneAlready = True
-                                            with open('defaultopenlist.pkl', 'wb') as file:
+                                            with open('lists\\defaultopenlist.pkl', 'wb') as file:
                                                 pickle.dump(default_list, file)
                                 if self.DoneAlready: return
                                 default_list[f'{series[manga_index][0]}']=[url,series[manga_index][1]]
                                 self.DoneAlready = True
-                                with open('defaultopenlist.pkl', 'wb') as file:
+                                with open('lists\\defaultopenlist.pkl', 'wb') as file:
                                     pickle.dump(default_list, file)
                                 return
                             if self.DoneAlready: 
@@ -110,7 +110,7 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
                                 return
                             def changeInReadingList(seriesid,lastchapter):
                                 try:
-                                    with open('newchapslinks.pkl', 'rb') as file:
+                                    with open('lists\\newchapslinks.pkl', 'rb') as file:
                                         reading_list = pickle.load(file)
                                 except FileNotFoundError:
                                     reading_list = {}
@@ -122,7 +122,7 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
                                                 break
                                             else:
                                                 reading_list[f'{series}'][2]=lastchapter
-                                            with open('newchapslinks.pkl', 'wb') as file:
+                                            with open('lists\\newchapslinks.pkl', 'wb') as file:
                                                 pickle.dump(reading_list, file)
                             for j in self.loaded_data:
                                 if self.loaded_data[j][0]==series[manga_index][0] and len(self.loaded_data[j])>3:
@@ -202,7 +202,7 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
             s.pack()
             
         try:
-            with open('list.pkl', 'rb') as file:
+            with open('lists\\list.pkl', 'rb') as file:
                 self.loaded_data = pickle.load(file)
         except FileNotFoundError:
             self.loaded_data = {}
@@ -211,7 +211,7 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
         #save before exeting the app
         def save_data(loaded_data=self.loaded_data):
             if not callback == None: callback()
-            with open('list.pkl', 'wb') as file:
+            with open('lists\\list.pkl', 'wb') as file:
                 pickle.dump(loaded_data, file)
             self.destroy()
             
