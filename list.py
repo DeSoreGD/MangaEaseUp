@@ -213,34 +213,35 @@ class UserList(customtkinter.CTkToplevel):
         self.CheckUncheckAll.configure(text="Check All")
         self.SetUpManga.configure(state="disabled")
     
-    class AreYouSureWindow(customtkinter.CTkToplevel):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.geometry("330x100")
-            self.grab_set()
-            self.title('Confirm')
-
-            def button1():
-                self.destroy()
-                self.result = True
-            
-            def button2():
-                self.destroy()
-                self.result = False
-            
-            self.label = customtkinter.CTkLabel(self, text="Are you sure?", fg_color="transparent")
-            self.label.grid(row=0,column=0,columnspan=2,sticky='n')
-            
-            self.button1 = customtkinter.CTkButton(self, text="Yes", command=button1)
-            self.button1.grid(row=1,column=0,padx=10,pady=10,sticky='se')
-            
-            self.button2 = customtkinter.CTkButton(self, text="No", command=button2)
-            self.button2.grid(row=1,column=1,padx=10,pady=10,sticky='sw')
+    
     
     def DeleteMangaPress(self):
         checked_boxes = self.MangaListBox.get()
         if not len(checked_boxes) > 0: return
-        wind = self.AreYouSureWindow()
+        class AreYouSureWindow(customtkinter.CTkToplevel):
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                self.geometry("330x100")
+                self.grab_set()
+                self.title('Confirm')
+
+                def button1():
+                    self.destroy()
+                    self.result = True
+                
+                def button2():
+                    self.destroy()
+                    self.result = False
+                
+                self.label = customtkinter.CTkLabel(self, text="Are you sure?", fg_color="transparent")
+                self.label.grid(row=0,column=0,columnspan=2,sticky='n')
+                
+                self.button1 = customtkinter.CTkButton(self, text="Yes", command=button1)
+                self.button1.grid(row=1,column=0,padx=10,pady=10,sticky='se')
+                
+                self.button2 = customtkinter.CTkButton(self, text="No", command=button2)
+                self.button2.grid(row=1,column=1,padx=10,pady=10,sticky='sw')
+        wind = AreYouSureWindow()
         self.wait_window(wind)
         if not hasattr(wind, 'result'): return
         if not wind.result:
