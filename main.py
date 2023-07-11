@@ -261,6 +261,7 @@ class MUApp(customtkinter.CTk):
                         os.rename(f"images\{i[0]}.png", f"images\{i[0]}il.png")
                     with open('lists\\list.pkl', 'wb') as file:
                         pickle.dump(loaded_data, file)
+                    extracted_results.append([i[0],i[2]])
                 for j in loaded_data:  # j is key
                     if loaded_data[j][0]==i[0]:
                         self.MangaInfoAdd.configure(text='Already exists in the list')
@@ -274,6 +275,8 @@ class MUApp(customtkinter.CTk):
                         os.rename(f"images\{i[0]}.png", f"images\{i[0]}il.png")
                     with open('lists\\list.pkl', 'wb') as file:
                         pickle.dump(loaded_data, file)
+                    print(i[0],i[2])
+                    extracted_results.append([i[0],i[2]])
                 else:
                     AlreadExists=False
             
@@ -281,7 +284,10 @@ class MUApp(customtkinter.CTk):
                 
         checked_boxes = self.scrollable_checkbox_frame.get()
         if len(checked_boxes) != 0:
+            extracted_results=[]
             AddManga(checked_boxes)
+            wind=MSUW.MangaSetUpWindow(extracted_results)
+            self.wait_window(wind)
         else:
             self.MangaInfoAdd.configure(text='Nothing was checked')
             print('nothing was checked')
