@@ -308,13 +308,24 @@ class MUApp(customtkinter.CTk):
                 lastChapter = api.getlastchapterofmanga(loaded_data[f'{i}'][0],loaded_data[f'{i}'][5])
                 if lastChapter is None: # doesn't have chapters on mangaupdates
                     continue
-                match = re.search(r'c\.(\d+)', lastChapter)
-                if match:
-                    number = int(match.group(1))
-                    if number > loaded_data[f'{i}'][4]:
-                        print(number, ' ', loaded_data[f'{i}'][4])
-                        g=f'{i}'
-                        templinks[f'{loaded_data[g][0]}'] = [loaded_data[g][2], loaded_data[g][3], loaded_data[g][4], number]
+                def extract_number(string):
+                    match = re.search(r'c\.(\d+)(-\d+)?', string)
+                    if match:
+                        number_range = match.group(1)
+                        if match.group(2):
+                            number_range += match.group(2)
+                        return number_range
+                    else:
+                        return None
+                range_number = extract_number(lastChapter)
+                if '-' in range_number:
+                    number = int(range_number.split('-')[1])
+                else:
+                    number = int(range_number)
+                if number > loaded_data[f'{i}'][4]:
+                    print(number, ' ', loaded_data[f'{i}'][4])
+                    g=f'{i}'
+                    templinks[f'{loaded_data[g][0]}'] = [loaded_data[g][2], loaded_data[g][3], loaded_data[g][4], number]
                 else:
                     print("No number found in the string.")
         if len(templinks) > 0:
