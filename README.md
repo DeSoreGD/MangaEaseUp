@@ -12,7 +12,7 @@ These are the steps to save your time:
   
 2. Check the manga you want to add and click "Add"
   
-3. After you added all manga go to your list and "Check all" or those that you didn't set up, and click "Set up"
+3. It will open set up window(you can open the setting window later in your list)
 
 1) Put your preffered url to open or don't
 2) Enter on what chapter you are now
