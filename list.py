@@ -185,6 +185,7 @@ class UserList(customtkinter.CTkToplevel):
                     self.note.configure(text="")
                 self.makeMangaBox()
                 self.SetUpManga.configure(state="disabled")
+                self.CheckUncheckAll.configure(text="Check All")
                 
         checked_boxes = self.MangaListBox.get()
         if len(checked_boxes) != 0:
