@@ -10,6 +10,7 @@ import concurrent.futures
 import os
 import re
 import webbrowser
+import html
 
 
 
@@ -198,7 +199,7 @@ class MUApp(customtkinter.CTk):
         urls=[]
         for result in results: imges.append(result['thumb'])
         for result in results: serid.append(result['series_id'])
-        for result in results: values.append(result['title'])
+        for result in results: values.append(html.unescape(result['title']))
         for result in results: urls.append(result['url'])
         self.EmptyBoxOfManhwa.destroy()
         self.scrollable_checkbox_frame = MyScrollableCheckboxFrame(self, title="Manga/Manhwa/Manhua", values=values,imges=imges,serid=serid,urls=urls)
@@ -218,7 +219,7 @@ class MUApp(customtkinter.CTk):
         urls=[]
         for result in results: imges.append(result['thumb'])
         for result in results: serid.append(result['series_id'])
-        for result in results: values.append(result['title'])
+        for result in results: values.append(html.unescape(result['title']))
         for result in results: urls.append(result['url'])
         self.scrollable_checkbox_frame = MyScrollableCheckboxFrame(self, title="Manga/Manhwa/Manhua", values=values,imges=imges,serid=serid,urls=urls)
         self.scrollable_checkbox_frame.grid(row=1, column=0, padx=(10,10), pady=(10, 0), sticky="nsew", columnspan = 4)
@@ -236,7 +237,7 @@ class MUApp(customtkinter.CTk):
         urls=[]
         for result in results: imges.append(result['thumb'])
         for result in results: serid.append(result['series_id'])
-        for result in results: values.append(result['title'])
+        for result in results: values.append(html.unescape(result['title']))
         for result in results: urls.append(result['url'])
         self.scrollable_checkbox_frame = MyScrollableCheckboxFrame(self, title="Manga/Manhwa/Manhua", values=values,imges=imges,serid=serid,urls=urls)
         self.scrollable_checkbox_frame.grid(row=1, column=0, padx=(10,10), pady=(10, 0), sticky="nsew", columnspan = 4)
