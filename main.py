@@ -328,7 +328,7 @@ class MUApp(customtkinter.CTk):
                     g=f'{i}'
                     templinks[f'{loaded_data[g][0]}'] = [loaded_data[g][2], loaded_data[g][3], loaded_data[g][4], number]
                 else:
-                    print("No number found in the string.")
+                    print("no new chaps")
         if len(templinks) > 0:
             try:
                 with open('lists\\newchapslinks.pkl', 'rb') as file:
