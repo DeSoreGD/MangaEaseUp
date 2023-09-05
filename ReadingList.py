@@ -29,9 +29,10 @@ class CheckBoxesFrame(customtkinter.CTkFrame):
             self.user_list_instance.ReadManga.configure(state="disabled")
             self.user_list_instance.OpenManga.configure(state="disabled")
         wrapped_text = "\n".join([value[i:i+35] for i in range(0, len(value), 35)])
-        self.checkbox = customtkinter.CTkCheckBox(self, text=wrapped_text,onvalue=1,offvalue=0,command=check)
+        self.checkbox = customtkinter.CTkCheckBox(self, text=wrapped_text,onvalue=1,offvalue=0,command=check,text_color="white")
         self.checkbox.data_secret = i
         self.checkbox.grid(row=i, column=1, padx=0, pady=(0, 20), sticky="w",columnspan=2)
+        self.checkbox.configure(border_color="cyan")
         checkboxes.append(self.checkbox)
         combobox_var = customtkinter.StringVar(value=user_list_instance.loaded_data[f'{serid[i]}'][2])
         chapt_values = []
@@ -47,7 +48,7 @@ class CheckBoxesFrame(customtkinter.CTkFrame):
 # box where manga shown
 class MangaBox(customtkinter.CTkScrollableFrame):
     def __init__(self, master, title, values,serid,user_list_instance): 
-        super().__init__(master, label_text=title)
+        super().__init__(master, label_text=title,label_text_color="white")
         self.values = values
         self.serid = serid
         self.checkboxes = []
@@ -87,9 +88,9 @@ class ReadingUserList(customtkinter.CTkToplevel):
         self.grid_rowconfigure(1, weight=1)
         # Row 0
         # Search for Manga
-        self.MangaSearch = customtkinter.CTkEntry(self, placeholder_text="Search for manga...")
+        self.MangaSearch = customtkinter.CTkEntry(self, placeholder_text="Search for manga...", border_color="cyan",border_width=2,fg_color="transparent")
         self.MangaSearch.grid(row=0,column=1,padx=10,pady=(10,0), sticky='ew',columnspan=2)
-        self.MangaSearch.configure(height=35)
+        self.MangaSearch.configure(height=35,text_color="white")
         self.MangaSearch.bind("<KeyRelease>", self.on_entry_change)
         
         # column 1
@@ -98,19 +99,19 @@ class ReadingUserList(customtkinter.CTkToplevel):
         # Uncheck/checkAllManga button
         self.CheckUncheckAll = customtkinter.CTkButton(master=self, text="Check All", command=lambda:self.CheckAndUncheck(None,1))
         self.CheckUncheckAll.grid(row=1,column=2,padx=(0,10),pady=10,sticky='sew')
-        self.CheckUncheckAll.configure(height=50)
+        self.CheckUncheckAll.configure(height=50,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         #open default list
         self.OpenDefaults = customtkinter.CTkButton(master=self, text="Open defaults", command=self.OpenDefList)
         self.OpenDefaults.grid(row=1,column=2,padx=(0,10),pady=(0,70),sticky='sew')
-        self.OpenDefaults.configure(height=50)
+        self.OpenDefaults.configure(height=50,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # ReadManga Button
         self.ReadManga = customtkinter.CTkButton(master=self, text="Read", command=self.ReadMangaPress)
         self.ReadManga.grid(row=1,column=2,padx=(0,10),pady=10,sticky='new')
-        self.ReadManga.configure(height=80, state="disabled")
+        self.ReadManga.configure(height=80, state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # Open Manga button
         self.OpenManga = customtkinter.CTkButton(master=self, text="Open in browser", command=self.OpenMangaPress)
         self.OpenManga.grid(row=1,column=2,padx=(0,10),pady=(100,0),sticky='new')
-        self.OpenManga.configure(height=80, state="disabled")
+        self.OpenManga.configure(height=80, state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # Note About Check Read
         self.NoteACR = customtkinter.CTkLabel(self)
         self.NoteACR.configure(text="If checked and chapter is\n not changed, it makes it go\n to the last chapter",font=('Roboto Regular',14),text_color='yellow')
@@ -178,9 +179,11 @@ class ReadingUserList(customtkinter.CTkToplevel):
                 
                 self.button1 = customtkinter.CTkButton(self, text="Yes", command=button1)
                 self.button1.grid(row=1,column=0,padx=10,pady=10,sticky='se')
+                self.button1.configure(fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
                 
                 self.button2 = customtkinter.CTkButton(self, text="No", command=button2)
                 self.button2.grid(row=1,column=1,padx=10,pady=10,sticky='sw')
+                self.button2.configure(fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         wind = AreYouSureWindow()
         self.wait_window(wind)
         if not hasattr(wind, 'result'): return

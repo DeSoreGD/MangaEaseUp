@@ -46,7 +46,7 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
                     self.labelUrlPref = customtkinter.CTkLabel(self,text='Preffered URL to open:',font=('Roboto Regular',14))
                     self.labelUrlPref.grid(row=1,column=1,padx=5, pady=(0,0),sticky="nw",columnspan=2)
                     
-                    self.UrlPreffered = customtkinter.CTkEntry(self,textvariable=self.currentUrl, placeholder_text="URL",width=250)
+                    self.UrlPreffered = customtkinter.CTkEntry(self,textvariable=self.currentUrl, placeholder_text="URL",width=250, border_color="cyan",border_width=2,fg_color="transparent",text_color="white")
                     self.UrlPreffered.grid(row=1,column=1,padx=5,pady=(25,0),sticky='n')
                     
                     def DoneButt(manga_index):
@@ -69,7 +69,7 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
                             self.destroy()
                             SetUppingManga()
                     
-                    self.DoneButton = customtkinter.CTkButton(self, text="Done", command=lambda:DoneButt(manga_index),fg_color='green')
+                    self.DoneButton = customtkinter.CTkButton(self, text="Done", command=lambda:DoneButt(manga_index),fg_color="transparent",border_color='#03c04a',border_width=2,hover_color="#006400")
                     self.DoneButton.grid(row=1,column=1,padx=(130,5), pady=(50,0),sticky="se",columnspan=3)
             self.current_manga_index+=1
             s=MangaBox(self,self.current_manga_index)

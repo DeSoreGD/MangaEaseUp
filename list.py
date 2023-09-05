@@ -27,9 +27,10 @@ class CheckBoxesFrame(customtkinter.CTkFrame):
                     return
             self.user_list_instance.SetUpManga.configure(state="disabled")
             
-        self.checkbox = customtkinter.CTkCheckBox(self, text=value,onvalue=1,offvalue=0,command=check)
+        self.checkbox = customtkinter.CTkCheckBox(self, text=value,onvalue=1,offvalue=0,command=check,text_color="white")
         self.checkbox.data_secret = i
         self.checkbox.grid(row=i, column=1, padx=0, pady=(0, 20), sticky="w")
+        self.checkbox.configure(border_color="cyan")
         checkboxes.append(self.checkbox)
         
 
@@ -37,7 +38,7 @@ class CheckBoxesFrame(customtkinter.CTkFrame):
 # box where manga shown
 class MangaBox(customtkinter.CTkScrollableFrame):
     def __init__(self, master, title, values,serid,user_list_instance): 
-        super().__init__(master, label_text=title)
+        super().__init__(master, label_text=title,label_text_color="white")
         self.values = values
         self.serid = serid
         self.checkboxes = []
@@ -84,9 +85,9 @@ class UserList(customtkinter.CTkToplevel):
         self.grid_rowconfigure(1, weight=1)
         # Row 0
         # Search for Manga
-        self.MangaSearch = customtkinter.CTkEntry(self, placeholder_text="Search for manga...")
+        self.MangaSearch = customtkinter.CTkEntry(self, placeholder_text="Search for manga...", border_color="cyan",border_width=2,fg_color="transparent")
         self.MangaSearch.grid(row=0,column=1,padx=10,pady=(10,0), sticky='ew',columnspan=2)
-        self.MangaSearch.configure(height=35)
+        self.MangaSearch.configure(height=35,text_color="white")
         self.MangaSearch.bind("<KeyRelease>", self.on_entry_change)
         
         # column 1
@@ -102,19 +103,19 @@ class UserList(customtkinter.CTkToplevel):
         # UncheckAllManga button
         self.CheckUncheckAll = customtkinter.CTkButton(master=self, text="Check All", command=lambda:self.CheckAndUncheck(None,1))
         self.CheckUncheckAll.grid(row=1,column=2,padx=(0,10),pady=10,sticky='sew')
-        self.CheckUncheckAll.configure(height=50)
+        self.CheckUncheckAll.configure(height=50,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         #delete butt
         self.DeleteManga = customtkinter.CTkButton(master=self, text="Delete Manga", command=self.DeleteMangaPress)
         self.DeleteManga.grid(row=1,column=2,padx=(0,10),pady=(10,70),sticky='sew')
-        self.DeleteManga.configure(height=50)
+        self.DeleteManga.configure(height=50,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # SetUpManga Button
         self.SetUpManga = customtkinter.CTkButton(master=self, text="Set Up Manga", command=self.SetUpPress)
         self.SetUpManga.grid(row=1,column=2,padx=(0,10),pady=10,sticky='new')
-        self.SetUpManga.configure(height=80, state="disabled")
+        self.SetUpManga.configure(height=80, state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # button to open default list
         self.OpenOtherList = customtkinter.CTkButton(master=self, text="Open Default List", command=self.OpenOList)
         self.OpenOtherList.grid(row=1,column=2,padx=(0,10),pady=(150,0),sticky='new')
-        self.OpenOtherList.configure(height=80)
+        self.OpenOtherList.configure(height=80,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
     
     def makeMangaBox(self,values=None,serid=None):
         if values is None:
@@ -142,6 +143,7 @@ class UserList(customtkinter.CTkToplevel):
                 for i in self.default_list: values.append(self.default_list[i][1])
                 self.makeMangaBox(values,serid)
                 self.DefaultFlag=True
+                self.OpenOtherList.configure(text="Open User List")
             else:
                 self.note.configure(text="No manga in\nthe default list",font=('Roboto Regular',14),text_color="yellow")
         else:
@@ -152,6 +154,7 @@ class UserList(customtkinter.CTkToplevel):
                 self.loaded_data = {}
             self.makeMangaBox()
             self.DefaultFlag=False
+            self.OpenOtherList.configure(text="Open Default List")
         
     
     def on_entry_change(self,event):
@@ -239,9 +242,11 @@ class UserList(customtkinter.CTkToplevel):
                 
                 self.button1 = customtkinter.CTkButton(self, text="Yes", command=button1)
                 self.button1.grid(row=1,column=0,padx=10,pady=10,sticky='se')
+                self.button1.configure(fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
                 
                 self.button2 = customtkinter.CTkButton(self, text="No", command=button2)
                 self.button2.grid(row=1,column=1,padx=10,pady=10,sticky='sw')
+                self.button2.configure(fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         wind = AreYouSureWindow()
         self.wait_window(wind)
         if not hasattr(wind, 'result'): return

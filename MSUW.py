@@ -55,23 +55,25 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
                     self.labelUrlPref = customtkinter.CTkLabel(self,text='Preffered URL to open:',font=('Roboto Regular',14))
                     self.labelUrlPref.grid(row=1,column=1,padx=5, pady=(0,0),sticky="nw",columnspan=2)
                     grouptransl=api.get_group_scanlating(series[manga_index][0])
-                    self.UrlPreffered = customtkinter.CTkEntry(self,textvariable=self.currentUrl, placeholder_text="URL",width=250)
+                    self.UrlPreffered = customtkinter.CTkEntry(self,textvariable=self.currentUrl, placeholder_text="URL",width=250, border_color="cyan",border_width=2,fg_color="transparent",text_color="white")
                     self.UrlPreffered.grid(row=1,column=1,padx=5,pady=(25,0),sticky='n')
 
                     self.labelLastChapter = customtkinter.CTkLabel(self,text='Last Chapter Readed:',font=('Roboto Regular',14))
                     self.labelLastChapter.grid(row=1,column=1,padx=5, pady=(55,0),sticky="nw",columnspan=2)
                     
-                    self.LastChapter = customtkinter.CTkEntry(self, textvariable=self.currentChapter, placeholder_text="Chapter Number",width=150)
+                    self.LastChapter = customtkinter.CTkEntry(self, textvariable=self.currentChapter, placeholder_text="Chapter Number",width=150, border_color="cyan",border_width=2,fg_color="transparent",text_color="white")
                     self.LastChapter.grid(row=1,column=1,padx=5,pady=(80,0),sticky='nw')
                     
                     self.labelGrouptranslating = customtkinter.CTkLabel(self,text='Group which translates:',font=('Roboto Regular',14))
                     self.labelGrouptranslating.grid(row=1,column=1,padx=5, pady=(110,0),sticky="nw",columnspan=2)
                     # in combobox text hold text=don't choose if you want ...?
-                    self.Grouptranslating = customtkinter.CTkComboBox(self,state='readonly', values=[chapter['name'] for chapter in grouptransl['groups']],width=150, variable=self.combobox_var)
+                    self.Grouptranslating = customtkinter.CTkComboBox(self,state='readonly', values=[chapter['name'] for chapter in grouptransl['groups']],width=150,
+                                                                      variable=self.combobox_var,fg_color="black",border_color="cyan",border_width=2,button_color="#008b8b")
                     self.Grouptranslating.grid(row=1,column=1,padx=5,pady=(135,0),sticky='nw')
                     
-                    self.ToDefaultListCheck = customtkinter.CTkCheckBox(self, text="Save it in default list")
+                    self.ToDefaultListCheck = customtkinter.CTkCheckBox(self, text="Save it in default list",text_color="white")
                     self.ToDefaultListCheck.grid(row=2,column=0,padx=(5,5),pady=0,sticky='sw')
+                    self.ToDefaultListCheck.configure(border_color="cyan")
                     
                     def DoneButt(manga_index):
                         def FindTheRightOneAndAdd(url):
@@ -189,12 +191,12 @@ class MangaSetUpWindow(customtkinter.CTkToplevel):
                             self.destroy()
                             SetUppingManga(self.loaded_data)
                     
-                    self.DoneButton = customtkinter.CTkButton(self, text="Done", command=lambda:DoneButt(manga_index),fg_color='green')
+                    self.DoneButton = customtkinter.CTkButton(self, text="Done", command=lambda:DoneButt(manga_index),fg_color="transparent",border_color='#03c04a',border_width=2,hover_color="#006400")
                     self.DoneButton.grid(row=1,column=1,padx=(130,5), pady=(50,0),sticky="se",columnspan=3)
                     def CheckButt():
                         url = api.get_specific_series(series[manga_index][0])
                         webbrowser.open_new_tab(url['url'])
-                    self.CheckButton = customtkinter.CTkButton(self, text="Check", command=CheckButt,fg_color='green')
+                    self.CheckButton = customtkinter.CTkButton(self, text="Check", command=CheckButt,fg_color="transparent",border_color='#03c04a',border_width=2,hover_color="#006400")
                     self.CheckButton.configure(width=50)
                     self.CheckButton.grid(row=1,column=1,padx=(5,5), pady=(50,0),sticky="sw")
             self.current_manga_index+=1

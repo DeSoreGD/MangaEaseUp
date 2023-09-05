@@ -22,7 +22,7 @@ customtkinter.set_default_color_theme("dark-blue")  # Themes: "blue" (standard),
 # box where manga shown
 class MyScrollableCheckboxFrame(customtkinter.CTkScrollableFrame):
     def __init__(self, master, title, values, imges,serid,urls): # cache imgs here and delete not checked imges when add button
-        super().__init__(master, label_text=title)
+        super().__init__(master, label_text=title,label_text_color="white")
         self.values = values
         self.imges = imges
         self.serid = serid
@@ -51,9 +51,10 @@ class MyScrollableCheckboxFrame(customtkinter.CTkScrollableFrame):
                         hwmtimes += 1
                 else:
                     continue
-                checkbox = customtkinter.CTkCheckBox(self, text=value)
+                checkbox = customtkinter.CTkCheckBox(self, text=value,text_color="white")
                 checkbox.data_secret = i
                 checkbox.grid(row=i, column=1, padx=0, pady=(0, 20), sticky="w")
+                checkbox.configure(border_color="cyan")
                 self.checkboxes.append(checkbox)
                 
             def button_event(button_id):
@@ -62,6 +63,7 @@ class MyScrollableCheckboxFrame(customtkinter.CTkScrollableFrame):
             for i,_ in enumerate(self.urls):
                 CheckButton = customtkinter.CTkButton(self, text="Check", command=lambda button_id=i: button_event(button_id))
                 CheckButton.grid(row=i,column=1,padx=0, pady=(0, 14), sticky="sw")
+                CheckButton.configure(fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
                 
 
             for i, future in futures:
@@ -103,32 +105,32 @@ class MUApp(customtkinter.CTk):
             os.makedirs("lists\\")
         # Row 0
         # Search for Manga
-        self.MangaSearch = customtkinter.CTkEntry(self, placeholder_text="Search for manga...")
+        self.MangaSearch = customtkinter.CTkEntry(self, border_color="cyan",border_width=2,fg_color="transparent",placeholder_text="Search for manga...")
         self.MangaSearch.grid(row=0,column=0,padx=10,pady=(10,0), sticky='ew',columnspan = 4)
-        self.MangaSearch.configure(height=35)
+        self.MangaSearch.configure(height=35,text_color="white")
         # Button for search
         
         
         self.MangaSearchButton = customtkinter.CTkButton(master=self, text="Search", command= lambda: self.SearchButtPress(None))
         self.MangaSearchButton.grid(row=0,column=4,padx=(0,10),pady=(10,0),sticky='new')
-        self.MangaSearchButton.configure(height=35)
+        self.MangaSearchButton.configure(width=150,height=35,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         
         # Row 1
         # add Manga button 
         self.AddMangaButton = customtkinter.CTkButton(master=self, text="Add", command=self.AddMangaButtonPressed)
         self.AddMangaButton.grid(row=1,column=4,padx=(0,10),pady=10,sticky='new')
-        self.AddMangaButton.configure(height=80,state="disabled")
+        self.AddMangaButton.configure(width=150,height=80,state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white",text_color_disabled="#ff0000")
         # manga info label
         self.MangaInfoAdd = customtkinter.CTkLabel(self, text="", fg_color="transparent")
         self.MangaInfoAdd.grid(row=1,column=4,padx=(0,10),pady=(100,0),sticky='new')
         # next page button
-        self.NextPage = customtkinter.CTkButton(master=self, text="Next Page", command= self.NextPageButtonPress)
-        self.NextPage.grid(row=1,column=4,padx=(0,10),pady=0,sticky='sew')
-        self.NextPage.configure(height=40, state="disabled")
+        self.NextPage = customtkinter.CTkButton(master=self, text="Next >>", command= self.NextPageButtonPress)
+        self.NextPage.grid(row=1,column=4,padx=(0,10),pady=0,sticky='se')
+        self.NextPage.configure(width=80,height=40, state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white",text_color_disabled="#ff0000")
         # previous page button
-        self.PrevPage = customtkinter.CTkButton(master=self, text="Prev Page", command= self.PrevPageButtonPress)
-        self.PrevPage.grid(row=1,column=4,padx=(0,10),pady=(0,50),sticky='sew')
-        self.PrevPage.configure(height=40, state="disabled")
+        self.PrevPage = customtkinter.CTkButton(master=self, text="<< Prev", command= self.PrevPageButtonPress)
+        self.PrevPage.grid(row=1,column=4,padx=0,pady=0,sticky='sw')
+        self.PrevPage.configure(width=80,height=40, state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white",text_color_disabled="#ff0000")
         # empty box
         
         self.EmptyBoxOfManhwa = MyScrollableCheckboxFrame(self, title="Manga/Manhwa/Manhua",values=None,imges=[None],serid=[None],urls=[None])
@@ -138,22 +140,22 @@ class MUApp(customtkinter.CTk):
         # check for new chapters button
         self.CheckForNewChaps = customtkinter.CTkButton(master=self, text="Check \nfor new chapters", command=self.checkForNewChapsPress)
         self.CheckForNewChaps.grid(row=2,column=1,padx=(10,0),pady=(76,15),sticky='w')
-        self.CheckForNewChaps.configure(height=45,width=200)
+        self.CheckForNewChaps.configure(height=45,width=200,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # info about chapters
         self.infoAboutChapters = customtkinter.CTkLabel(self, text="", fg_color="transparent")
         self.infoAboutChapters.grid(row=2,column=1,padx=(220,0),pady=(76,15),sticky='w')
         # show User List Button
         self.UsersList = customtkinter.CTkButton(master=self, text="Your List", command=self.ShowYourList)
         self.UsersList.grid(row=2,column=1,padx=(10,0),pady=(0,50),sticky='w')
-        self.UsersList.configure(height=45,width=200)
+        self.UsersList.configure(height=45,width=200,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # Open New Chapters Button
         self.OpenNewChaps = customtkinter.CTkButton(master=self, text="Open New Chapters", command=self.OpenNewChapsPress)
         self.OpenNewChaps.grid(row=2,column=0,padx=(10,0),pady=(20,15),sticky='w')
-        self.OpenNewChaps.configure(height=100,width=150)
+        self.OpenNewChaps.configure(height=100,width=150,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # Info Button
         self.InfoButt = customtkinter.CTkButton(master=self, text="Info", command=self.InfoPress)
         self.InfoButt.grid(row=2,column=4,padx=(0,10),pady=(75,0),sticky='e')
-        self.InfoButt.configure(height=35,width=75)
+        self.InfoButt.configure(height=35,width=75,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         
         self.bind('<Return>', self.SearchButtPress)
     
@@ -370,10 +372,10 @@ class MUApp(customtkinter.CTk):
                 self.grab_set()
                 self.after(250, lambda: self.iconbitmap('iconforMEU.ico'))
                 self.title("Info")
-                self.geometry("780x150")
-                self.minsize(780,150)
+                self.geometry("838x150")
+                self.minsize(838,150)
                 
-                self.Credit = customtkinter.CTkLabel(self, text="Credits:\nThis was made possible thanks to MangaUpdates API(https://api.mangaupdates.com/ & https://www.mangaupdates.com/)\nI did this mainly because I needed programming experience, but also so that reading manga wouldn't take too much time.\nIf anything, these are my contacts:\nDiscord: desore(It's so weird without the hashtag lol)\nMy email: desoreoff@gmail.com", fg_color="transparent")
+                self.Credit = customtkinter.CTkLabel(self, text="Credits:\nThis was made possible thanks to MangaUpdates API(https://api.mangaupdates.com/ & https://www.mangaupdates.com/)\nI did this mainly so that reading the manga wouldn't be so time-consuming, but also because I needed programming experience :P \nIf anything, these are my contacts:\nDiscord: desore(It's so weird without the hashtag lol)\nMy email: desoreoff@gmail.com", fg_color="transparent")
                 self.Credit.configure(font=('Roboto Regular',14),text_color="white")
                 self.Credit.grid(row=0,column=0,padx=10,pady=20,sticky='n')
         UserList()
