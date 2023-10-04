@@ -1,6 +1,6 @@
 Tired of checking your every manga for new chapters? Well, now you can do it just with a click!
 
-![image](https://github.com/DeSoreGD/MangaEaseUp/assets/131355715/2673a497-152a-4e8e-9b8e-82cbaa250a21)
+![image](https://github.com/DeSoreGD/MangaEaseUp/assets/131355715/ce08a4ba-14a6-4828-b20d-9d3dbde2d436)
 
 This was made possible by the MangaUpdatesAPI
 
