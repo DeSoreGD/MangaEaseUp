@@ -11,7 +11,8 @@ import os
 import re
 import webbrowser
 import html
-
+import shutil
+import datetime
 
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
@@ -119,18 +120,18 @@ class MUApp(customtkinter.CTk):
         # add Manga button 
         self.AddMangaButton = customtkinter.CTkButton(master=self, text="Add", command=self.AddMangaButtonPressed)
         self.AddMangaButton.grid(row=1,column=4,padx=(0,10),pady=10,sticky='new')
-        self.AddMangaButton.configure(width=150,height=80,state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white",text_color_disabled="#ff0000")
+        self.AddMangaButton.configure(width=150,height=80,state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # manga info label
         self.MangaInfoAdd = customtkinter.CTkLabel(self, text="", fg_color="transparent")
         self.MangaInfoAdd.grid(row=1,column=4,padx=(0,10),pady=(100,0),sticky='new')
         # next page button
         self.NextPage = customtkinter.CTkButton(master=self, text="Next >>", command= self.NextPageButtonPress)
         self.NextPage.grid(row=1,column=4,padx=(0,10),pady=0,sticky='se')
-        self.NextPage.configure(width=80,height=40, state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white",text_color_disabled="#ff0000")
+        self.NextPage.configure(width=80,height=40, state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # previous page button
         self.PrevPage = customtkinter.CTkButton(master=self, text="<< Prev", command= self.PrevPageButtonPress)
         self.PrevPage.grid(row=1,column=4,padx=0,pady=0,sticky='sw')
-        self.PrevPage.configure(width=80,height=40, state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white",text_color_disabled="#ff0000")
+        self.PrevPage.configure(width=80,height=40, state="disabled",fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         # empty box
         
         self.EmptyBoxOfManhwa = MyScrollableCheckboxFrame(self, title="Manga/Manhwa/Manhua",values=None,imges=[None],serid=[None],urls=[None])
@@ -156,8 +157,27 @@ class MUApp(customtkinter.CTk):
         self.InfoButt = customtkinter.CTkButton(master=self, text="Info", command=self.InfoPress)
         self.InfoButt.grid(row=2,column=4,padx=(0,10),pady=(75,0),sticky='e')
         self.InfoButt.configure(height=35,width=75,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
-        
+        # backup button
+        self.BackupButt = customtkinter.CTkButton(master=self, text="Backup", command=self.Backup)
+        self.BackupButt.grid(row=2,column=4,padx=(0,10),pady=(0,5),sticky='e')
+        self.BackupButt.configure(height=35,width=75,fg_color="transparent",border_color="cyan",border_width=2,hover_color="#008b8b",text_color="white")
         self.bind('<Return>', self.SearchButtPress)
+    
+    def Backup(self):
+        backup_dir = 'backup/'
+        if not os.path.exists(backup_dir):
+            os.makedirs(backup_dir)
+        backup_file = 'last_backup_time.pkl'
+        current_time = datetime.datetime.now()
+        last_backup_time = current_time
+        # Create a unique backup folder name based on the current date and time
+        backup_folder_name = current_time.strftime('%Y-%m-%d_%H-%M-%S')
+        backup_folder_path = os.path.join(backup_dir, backup_folder_name)
+        # Copy 'lists' and 'images' directories to the unique backup folder
+        shutil.copytree('lists/', os.path.join(backup_folder_path, 'lists'))
+        shutil.copytree('images/', os.path.join(backup_folder_path, 'images'))
+        with open(backup_file, 'wb') as file:
+            pickle.dump(last_backup_time, file)
     
     def ReturnButtToNormal(self):
         self.after(1000, lambda: self.MangaSearchButton.configure(state="normal"))
@@ -385,8 +405,46 @@ class MUApp(customtkinter.CTk):
         self.destroy()
 
 
-# changes
-# add credit to api
+# backupd
+backup_dir = 'backup/'
+# Create the backup directory if it doesn't exist
+if not os.path.exists(backup_dir):
+    os.makedirs(backup_dir)
+# Check if a backup file with the last backup date exists. If not, create one.
+backup_file = 'last_backup_time.pkl'
+if not os.path.exists(backup_file):
+    # If there's no previous backup, create the first backup immediately.
+    current_time = datetime.datetime.now()
+    last_backup_time = current_time
+    # Create a unique backup folder name based on the current date and time
+    backup_folder_name = current_time.strftime('%Y-%m-%d_%H-%M-%S')
+    backup_folder_path = os.path.join(backup_dir, backup_folder_name)
+    # Copy 'lists' and 'images' directories to the unique backup folder
+    shutil.copytree('lists/', os.path.join(backup_folder_path, 'lists'))
+    shutil.copytree('images/', os.path.join(backup_folder_path, 'images'))
+    with open(backup_file, 'wb') as file:
+        pickle.dump(last_backup_time, file)
+else:
+    with open(backup_file, 'rb') as file:
+        last_backup_time = pickle.load(file)
+# Backup interval (7 days in seconds)
+backup_interval = 7 * 24 * 60 * 60
+# Check if it's time for a new backup by comparing the current time with the last backup time.
+current_time = datetime.datetime.now()
+time_since_last_backup = (current_time - last_backup_time).total_seconds()
+if time_since_last_backup >= backup_interval:
+    # Create a unique backup folder name based on the current date and time
+    backup_folder_name = current_time.strftime('%Y-%m-%d_%H-%M-%S')
+    backup_folder_path = os.path.join(backup_dir, backup_folder_name)
+    # Copy 'lists' and 'images' directories to the unique backup folder
+    shutil.copytree('lists/', os.path.join(backup_folder_path, 'lists'))
+    shutil.copytree('images/', os.path.join(backup_folder_path, 'images'))
+    # Update the last backup time
+    last_backup_time = current_time
+    with open(backup_file, 'wb') as file:
+        pickle.dump(last_backup_time, file)
+        
+#gui start
 MUAppW = MUApp()
 MUAppW.wm_protocol("WM_DELETE_WINDOW", MUAppW.on_closing)
 MUAppW.mainloop()
