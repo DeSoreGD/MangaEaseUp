@@ -1,6 +1,8 @@
-.vscode/extensions.json
+.vscode/
 images/
 __pycache__/
 lists/
 setup.py
 build/
+backup/
+last_backup_time.pkl
