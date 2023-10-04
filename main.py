@@ -174,8 +174,8 @@ class MUApp(customtkinter.CTk):
         backup_folder_name = current_time.strftime('%Y-%m-%d_%H-%M-%S')
         backup_folder_path = os.path.join(backup_dir, backup_folder_name)
         # Copy 'lists' and 'images' directories to the unique backup folder
-        shutil.copytree('lists/', os.path.join(backup_folder_path, 'lists'))
-        shutil.copytree('images/', os.path.join(backup_folder_path, 'images'))
+        if os.path.exists('lists/'):shutil.copytree('lists/', os.path.join(backup_folder_path, 'lists'))
+        if os.path.exists('images/'):shutil.copytree('images/', os.path.join(backup_folder_path, 'images'))
         with open(backup_file, 'wb') as file:
             pickle.dump(last_backup_time, file)
     
@@ -420,8 +420,8 @@ if not os.path.exists(backup_file):
     backup_folder_name = current_time.strftime('%Y-%m-%d_%H-%M-%S')
     backup_folder_path = os.path.join(backup_dir, backup_folder_name)
     # Copy 'lists' and 'images' directories to the unique backup folder
-    shutil.copytree('lists/', os.path.join(backup_folder_path, 'lists'))
-    shutil.copytree('images/', os.path.join(backup_folder_path, 'images'))
+    if os.path.exists('lists/'):shutil.copytree('lists/', os.path.join(backup_folder_path, 'lists'))
+    if os.path.exists('images/'):shutil.copytree('images/', os.path.join(backup_folder_path, 'images'))
     with open(backup_file, 'wb') as file:
         pickle.dump(last_backup_time, file)
 else:
@@ -437,8 +437,8 @@ if time_since_last_backup >= backup_interval:
     backup_folder_name = current_time.strftime('%Y-%m-%d_%H-%M-%S')
     backup_folder_path = os.path.join(backup_dir, backup_folder_name)
     # Copy 'lists' and 'images' directories to the unique backup folder
-    shutil.copytree('lists/', os.path.join(backup_folder_path, 'lists'))
-    shutil.copytree('images/', os.path.join(backup_folder_path, 'images'))
+    if os.path.exists('lists/'):shutil.copytree('lists/', os.path.join(backup_folder_path, 'lists'))
+    if os.path.exists('images/'):shutil.copytree('images/', os.path.join(backup_folder_path, 'images'))
     # Update the last backup time
     last_backup_time = current_time
     with open(backup_file, 'wb') as file:
